@@ -1,0 +1,27 @@
+# Python environment
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment variables & secrets
+.env
+
+# Large raw & processed datasets
+data/raw/*
+data/processed/*
+data/curated/*
+
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+!data/curated/.gitkeep
+
+# IDE / System
+.DS_Store
+.vscode/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Logs
+*.log
