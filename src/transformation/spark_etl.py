@@ -10,7 +10,7 @@ def run_spark_etl():
         .config("spark.driver.bindAddress", "127.0.0.1") \
         .getOrCreate()
     
-    raw_file_path = "data/raw/clean_atp_matches_2023.csv"
+    raw_file_path = "data/processed/clean_atp_matches_2023.csv"
     if not os.path.exists(raw_file_path):
         print(f"Raw data file not found at {raw_file_path}.")
         spark.stop()
@@ -39,11 +39,10 @@ def run_spark_etl():
 
     print(f"Cleaned row count in Spark: {cleaned_spark_df.count()}")
     
-    # Safe Bridge to Postgres via Pandas
     print("Loading transformed data into PostgreSQL Star Schema...")
     pandas_clean_df = cleaned_spark_df.toPandas()
 
-    db_url = "postgresql://postgres:postgres@localhost:5432/courtvision_db"
+    db_url = "postgresql://postgres:Olivia@localhost:5432/courtvision_db"
     engine = create_engine(db_url)
 
     pandas_clean_df.to_sql("stg_matches", engine, if_exists="replace", index=False)
