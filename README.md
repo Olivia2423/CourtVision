@@ -66,26 +66,6 @@ This structure separates measurable match activity from descriptive attributes, 
 
 When no player is selected, the dashboard presents aggregate statistics for the complete reporting dataset. Because every completed match contains one winner and one loser, aggregate wins and losses are equal, producing an overall win rate of 50%.
 
-## Local Installation and Setup
-
-### 1. Clone the repository
-
-~~~bash
-git clone https://github.com/Olivia2423/CourtVision.git
-cd CourtVision
-~~~
-
-### 2. Install the dependencies
-
-~~~bash
-pip install -r requirements.txt
-~~~
-
-### 3. Run the Streamlit application
-
-~~~bash
-streamlit run app.py
-~~~
 
 ## Project Purpose
 
