@@ -69,5 +69,5 @@ The PostgreSQL data warehouse implements a star schema model to ensure high-perf
    streamlit run app.py
    ```
 
-# **© 2026 Olivia Christy Kuitchoua Kewang. All rights reserved.**
+ **© 2026 Olivia Kewang. All rights reserved.*
    
