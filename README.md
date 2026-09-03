@@ -1,75 +1,103 @@
 # CourtVision: End-to-End Tennis Data Engineering & Analytics Platform
 
-CourtVision is an enterprise-grade data engineering and analytics platform designed to ingest, transform, model, and visualize extensive historical tennis match records. Built to handle over 547,000 matches, this project implements a complete modern data stack spanning distributed data pipelines, workflow orchestration, a relational star schema data warehouse, and dual-layer business intelligence reporting.
+CourtVision is a data engineering and analytics platform designed to ingest, transform, model, and visualize historical tennis match data. The project demonstrates a modern data workflow spanning distributed data processing, pipeline orchestration, dimensional data warehousing, and interactive business intelligence reporting.
 
-## Architecture & Data Flow
+The complete pipeline processes more than 547,000 historical match records, while the current Power BI dashboard uses a curated reporting dataset for interactive analysis.
 
-The platform follows a medallion-style data architecture, moving raw information through automated ingestion and transformation tiers before serving it to reporting layers:
+## Architecture and Data Flow
 
-Raw Data Sources -> PySpark (Bronze / Silver / Gold) -> Apache Airflow DAGs -> PostgreSQL Star Schema -> Power BI & Streamlit
+CourtVision follows a medallion-style data architecture that moves data through raw, cleaned, and analytics-ready layers:
 
-1. **Ingestion & Processing (Bronze to Silver to Gold):** Scaled data cleaning, null handling, schema enforcement, and aggregations executed via **PySpark**.
-2. **Orchestration:** Automated pipeline execution managed sequentially and dependently using **Apache Airflow**.
-3. **Data Warehousing:** Curated models loaded into a normalized **PostgreSQL** star schema optimized for analytical queries.
-4. **Presentation Layer:** Executive reporting delivered via an interactive **Power BI** dashboard and a custom programmatic **Streamlit** web application (`app.py`).
+Raw Data Sources → Apache Airflow-Orchestrated PySpark ETL → Bronze/Silver/Gold Data Layers → PostgreSQL Star Schema → Power BI and Streamlit
+
+1. **Data Ingestion and Processing:** PySpark performs data ingestion, schema enforcement, null handling, cleaning, transformation, and aggregation across Bronze, Silver, and Gold data layers.
+
+2. **Workflow Orchestration:** Apache Airflow manages task dependencies and coordinates the sequential execution of the data pipeline.
+
+3. **Data Warehousing:** Curated analytical models are loaded into a dimensional PostgreSQL star schema optimized for reporting and analytical queries.
+
+4. **Presentation Layer:** Insights are delivered through an interactive Power BI dashboard and a Streamlit web application defined in `app.py`.
 
 ## Tech Stack
 
-* **Big Data Processing:** Python, PySpark, Pandas, SQLAlchemy
+* **Data Processing:** Python, PySpark, Pandas
 * **Workflow Orchestration:** Apache Airflow
-* **Data Warehousing:** PostgreSQL (Star Schema Architecture)
-* **Business Intelligence & Visualization:** Power BI (Power Query, DAX, Custom Matrix & Slicers), Streamlit
-* **Version Control & Tooling:** Git, GitHub, VS Code
+* **Database and Data Access:** PostgreSQL, SQL, SQLAlchemy
+* **Business Intelligence:** Power BI, Power Query, DAX
+* **Application Development:** Streamlit
+* **Version Control and Tooling:** Git, GitHub, VS Code
 
 ## Repository Structure
 
-```text
+~~~text
 CourtVision/
 │
 ├── dags/                    # Apache Airflow pipeline orchestration files
 ├── data/                    # Local staging and sample data assets
-├── src/                     # PySpark ETL scripts and database connection modules
-├── app.py                   # Interactive Streamlit analytics web application
-├── requirements.txt         # Project Python dependencies
-└── .gitignore               # Ignored system and configuration files
-```
+├── src/                     # PySpark ETL scripts and database modules
+├── app.py                   # Interactive Streamlit analytics application
+├── requirements.txt         # Python project dependencies
+└── .gitignore               # Files excluded from version control
+~~~
 
 ## Database Star Schema Design
 
-The PostgreSQL data warehouse implements a star schema model to ensure high-performance analytical queries:
+The PostgreSQL data warehouse uses a dimensional star schema optimized for analytical queries:
 
-* **`fact_match`:** Core transaction table storing match results, durations, scores, and foreign keys pointing to dimension tables.
-* **`dim_player`:** Normalized entity table storing player identifiers, names, and biographical attributes.
-* **`dim_tournament`:** Dimension table mapping tournament names, tiers (Grand Slam, Masters, 250/500 levels), and metadata.
-* **`dim_surface`:** Surface classification dimension tracking court conditions (Hard, Clay, Grass).
+* **`fact_match`:** Stores match results, dates, durations, scores, player references, surface references, and source tournament identifiers.
+* **`dim_player`:** Stores player identifiers, names, handedness, and country information.
+* **`dim_tournament`:** Stores tournament names, competition levels, surface classifications, and related metadata.
+* **`dim_surface`:** Classifies court surfaces, including Hard, Clay, and Grass.
 
-## Power BI Dashboard Highlights
+This structure separates measurable match activity from descriptive attributes, allowing Power BI to efficiently filter and aggregate results across players, tournaments, surfaces, and dates.
+
+## Power BI Dashboard
 
 ![CourtVision Power BI Dashboard](https://github.com/user-attachments/assets/a6642173-59d2-402b-b40e-013890a702c7)
 
-* **Executive KPI Header Cards:** Immediate visibility into **Total Matches**, overall **Win Rate**, **Total Wins**, and **Total Losses**.
-* **Dynamic Slicing:** Left-aligned **Player Name** slicer that instantaneously filters the entire dashboard canvas.
-* **Surface Breakdown Analysis:** Comparative bar charts evaluating player and tournament performance across Hard, Clay, and Grass courts.
-* **Tournament Tier Segmentation:** Donut charts illustrating match distributions across tournament levels.
-* **Expandable Date Matrix:** Hierarchical drill-down matrix displaying year, quarter, month, and day granularity mapped against specific tournament names.
+### Dashboard Highlights
 
+* **Executive KPI Cards:** Display total matches, total wins, total losses, and overall win rate.
+* **Dynamic Player Filtering:** A player-name slicer updates the dashboard to show an individual player’s matches, wins, losses, win rate, surface performance, and tournament results.
+* **Surface Performance Analysis:** A bar chart compares wins across Hard, Clay, and Grass courts.
+* **Tournament-Level Segmentation:** A donut chart displays the distribution of matches across tournament levels.
+* **Tournament Performance Matrix:** A detailed matrix compares total wins and losses across tournaments.
+* **Date Hierarchy Analysis:** Date fields support drill-down analysis by year, quarter, month, and day.
 
-## Local Installation & Setup
+When no player is selected, the dashboard presents aggregate statistics for the complete reporting dataset. Because every completed match contains one winner and one loser, aggregate wins and losses are equal, producing an overall win rate of 50%.
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/Olivia2423/CourtVision.git](https://github.com/Olivia2423/CourtVision.git)
-   cd CourtVision
-   ```
+## Local Installation and Setup
 
-2. **Install Dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. **Run the Streamlit application locally:**
-   ```bash
-   streamlit run app.py
-   ```
+### 1. Clone the repository
 
- **© 2026 Olivia Kewang. All rights reserved.*
-   
+~~~bash
+git clone https://github.com/Olivia2423/CourtVision.git
+cd CourtVision
+~~~
+
+### 2. Install the dependencies
+
+~~~bash
+pip install -r requirements.txt
+~~~
+
+### 3. Run the Streamlit application
+
+~~~bash
+streamlit run app.py
+~~~
+
+## Project Purpose
+
+CourtVision demonstrates the development of an end-to-end analytical solution, including:
+
+* Processing large historical datasets with PySpark
+* Orchestrating dependent data workflows with Apache Airflow
+* Designing a dimensional PostgreSQL data warehouse
+* Building relationships and analytical measures in Power BI
+* Developing interactive reports with DAX, slicers, cards, charts, and matrices
+* Delivering an additional analytics interface through Streamlit
+
+## License
+
+© 2026 Olivia Kewang. All rights reserved.
