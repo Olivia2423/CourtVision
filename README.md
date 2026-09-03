@@ -45,8 +45,7 @@ The PostgreSQL data warehouse implements a star schema model to ensure high-perf
 
 ## Power BI Dashboard Highlights
 
-![CourtVision Power BI Dashboard](<img width="2430" height="1212" alt="image" src="https://github.com/user-attachments/assets/a6642173-59d2-402b-b40e-013890a702c7" />
-)
+![CourtVision Power BI Dashboard](https://github.com/user-attachments/assets/a6642173-59d2-402b-b40e-013890a702c7)
 
 * **Executive KPI Header Cards:** Immediate visibility into **Total Matches**, overall **Win Rate**, **Total Wins**, and **Total Losses**.
 * **Dynamic Slicing:** Left-aligned **Player Name** slicer that instantaneously filters the entire dashboard canvas.
