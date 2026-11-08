@@ -66,6 +66,10 @@ This structure separates measurable match activity from descriptive attributes, 
 
 When no player is selected, the dashboard presents aggregate statistics for the complete reporting dataset. Because every completed match contains one winner and one loser, aggregate wins and losses are equal, producing an overall win rate of 50%.
 
+## CourtVision Analytic Dashboard
+![CourtVision Web Analytic Dashboard](<img width="2552" height="762" alt="Screenshot 2026-08-29 140659" src="https://github.com/user-attachments/assets/f901c1a6-5535-4a48-bf91-7765ac3dec60" />
+)
+
 
 ## Project Purpose
 
